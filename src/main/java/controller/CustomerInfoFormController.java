@@ -1,9 +1,11 @@
-package Controller;
+package controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
+import model.CustomerDto;
 
 public class CustomerInfoFormController {
 
@@ -55,4 +57,25 @@ public class CustomerInfoFormController {
     @FXML
     private TextField txtCusPhone;
 
+    public void btnAddOnAction(ActionEvent actionEvent) {
+        String id = txtCusId.getText();
+        String firstname = txtCusFirstName.getText();
+        String lastname = txtCusLastName.getText();
+        String email = txtCusEmail.getText();
+        String city = txtCusCity.getText();
+        String address = txtCusAddress.getText();
+        Integer phone = Integer.parseInt(txtCusPhone.getText());
+        String regdate = String.valueOf(cusRegDate.getValue());
+
+
+    }
+
+    public void btnDeleteOnAction(ActionEvent actionEvent) {
+    }
+
+    public void btnUpdateOnAction(ActionEvent actionEvent) {
+    }
+
+    public void btnReloadOnAction(ActionEvent actionEvent) {
+    }
 }
