@@ -1,5 +1,7 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
@@ -7,10 +9,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import model.CustomerDto;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CustomerInfoFormController {
@@ -63,6 +64,8 @@ public class CustomerInfoFormController {
     @FXML
     private TextField txtCusPhone;
 
+    ObservableList<CustomerDto> observableList = FXCollections.observableArrayList();
+
     public void btnAddOnAction(ActionEvent actionEvent) {
         String id = txtCusId.getText();
         String firstname = txtCusFirstName.getText();
@@ -80,20 +83,19 @@ public class CustomerInfoFormController {
 
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO customer VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
-            preparedStatement.setObject(1,id);
-            preparedStatement.setObject(2,firstname);
-            preparedStatement.setObject(3,lastname);
-            preparedStatement.setObject(4,email);
-            preparedStatement.setObject(5,phone);
-            preparedStatement.setObject(6,address);
-            preparedStatement.setObject(7,city);
-            preparedStatement.setObject(8,regdate);
+            preparedStatement.setObject(1, id);
+            preparedStatement.setObject(2, firstname);
+            preparedStatement.setObject(3, lastname);
+            preparedStatement.setObject(4, email);
+            preparedStatement.setObject(5, phone);
+            preparedStatement.setObject(6, address);
+            preparedStatement.setObject(7, city);
+            preparedStatement.setObject(8, regdate);
 
             preparedStatement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
 
     }
 
@@ -104,5 +106,29 @@ public class CustomerInfoFormController {
     }
 
     public void btnReloadOnAction(ActionEvent actionEvent) {
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
+
+            ResultSet resultSet = connection.prepareStatement("SELECT * FROM customers").executeQuery();
+
+
+            while (resultSet.next()) {
+                String id = resultSet.getString(1);
+                String firstName = resultSet.getString(2);
+                String lastName = resultSet.getString(3);
+                String email = resultSet.getString(4);
+                int phone = resultSet.getInt(5);
+                String address = resultSet.getString(6);
+                String city = resultSet.getString(7);
+                String regDate = resultSet.getString(8);
+
+                CustomerDto customerDto = new CustomerDto(id, firstName, lastName, email, phone, address, city, regDate);
+
+                observableList.add(customerDto);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
