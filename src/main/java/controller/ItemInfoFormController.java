@@ -8,6 +8,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 public class ItemInfoFormController {
 
     @FXML
@@ -66,7 +71,25 @@ public class ItemInfoFormController {
         String category = String.valueOf(cmbCategory.getValue());
         String description = txtDescription.getText();
 
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
 
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO items VALUES(?,?,?,?,?,?,?)");
+
+            preparedStatement.setObject(1, id);
+            preparedStatement.setObject(2, name);
+            preparedStatement.setObject(3, price);
+            preparedStatement.setObject(4, packSize);
+            preparedStatement.setObject(5, qty);
+            preparedStatement.setObject(6, category);
+            preparedStatement.setObject(7, description);
+
+            preparedStatement.execute();
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
 
     }
