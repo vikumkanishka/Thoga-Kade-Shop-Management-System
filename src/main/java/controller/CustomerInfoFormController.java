@@ -76,7 +76,7 @@ public class CustomerInfoFormController {
         Integer phone = Integer.parseInt(txtCusPhone.getText());
         String regdate = String.valueOf(cusRegDate.getValue());
 
-        CustomerDto customerDto = new CustomerDto(id, firstname, lastname, email, phone, address, city, regdate);
+//        CustomerDto customerDto = new CustomerDto(id, firstname, lastname, email, phone, address, city, regdate);
 
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
