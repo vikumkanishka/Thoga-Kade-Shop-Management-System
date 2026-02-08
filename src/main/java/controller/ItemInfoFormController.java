@@ -86,17 +86,14 @@ public class ItemInfoFormController {
 
             preparedStatement.execute();
 
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
     @FXML
     void btnClearOnAction(ActionEvent event) {
-
+        clearFeilds();
     }
 
     @FXML
@@ -114,4 +111,13 @@ public class ItemInfoFormController {
 
     }
 
+    public void clearFeilds(){
+        txtId.clear();
+        txtName.clear();
+        txtPrice.clear();
+        txtPackSize.clear();
+        txtQTY.clear();
+        cmbCategory.setValue(null);
+        txtDescription.clear();
+    }
 }
