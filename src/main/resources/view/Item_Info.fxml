@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.DropdownButton?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="679.0" prefWidth="948.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ItemInfoFormController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#183c5e" height="112.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="948.0" />
+      <Label alignment="CENTER" layoutX="258.0" layoutY="29.0" prefHeight="36.0" prefWidth="431.0" text="Item Management">
+         <font>
+            <Font name="System Bold" size="37.0" />
+         </font>
+      </Label>
+      <JFXTextField layoutX="53.0" layoutY="139.0" prefHeight="26.0" prefWidth="187.0" promptText="ID" />
+      <JFXTextField layoutX="269.0" layoutY="139.0" prefHeight="26.0" prefWidth="187.0" promptText="Name" />
+      <JFXTextField layoutX="484.0" layoutY="139.0" prefHeight="26.0" prefWidth="187.0" promptText="Price" />
+      <DropdownButton layoutX="269.0" layoutY="209.0" prefHeight="26.0" prefWidth="126.0">
+          <items>
+              <MenuItem text="Choice 1" />
+              <MenuItem text="Choice 2" />
+              <MenuItem text="Choice 3" />
+          </items>
+      </DropdownButton>
+      <JFXTextField layoutX="707.0" layoutY="139.0" prefHeight="26.0" prefWidth="187.0" promptText="PackSize" />
+      <JFXTextArea layoutX="388.0" layoutY="182.0" prefHeight="27.0" prefWidth="514.0" promptText="Description" wrapText="true">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </JFXTextArea>
+      <JFXTextField layoutX="53.0" layoutY="209.0" prefHeight="26.0" prefWidth="187.0" promptText="QuantityOnHnd" />
+      <TableView layoutX="9.0" layoutY="293.0" prefHeight="377.0" prefWidth="930.0">
+        <columns>
+          <TableColumn prefWidth="53.60000801086426" text="ID" />
+          <TableColumn prefWidth="155.99999237060547" text="NAME" />
+            <TableColumn prefWidth="104.0" text="PRICE" />
+            <TableColumn prefWidth="106.4000244140625" text="PACK SIZE" />
+            <TableColumn prefWidth="127.19998168945312" text="QUANTITY ON HAND" />
+            <TableColumn prefWidth="148.79998779296875" text="CATEGORY" />
+            <TableColumn prefWidth="245.5999755859375" text="DESCRIPTION" />
+        </columns>
+      </TableView>
+      <JFXButton layoutX="36.0" layoutY="252.0" prefHeight="30.0" prefWidth="168.0" text="ADD" />
+      <JFXButton layoutX="214.0" layoutY="252.0" prefHeight="30.0" prefWidth="168.0" text="UPDATE" />
+      <JFXButton layoutX="392.0" layoutY="252.0" prefHeight="30.0" prefWidth="168.0" text="DELETE" />
+      <JFXButton layoutX="570.0" layoutY="252.0" prefHeight="30.0" prefWidth="168.0" text="CLEAR" />
+      <JFXButton layoutX="748.0" layoutY="252.0" prefHeight="30.0" prefWidth="168.0" text="SEARCH" />
+   </children>
+</AnchorPane>
