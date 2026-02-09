@@ -37,7 +37,7 @@
       <JFXButton layoutX="536.0" layoutY="252.0" onAction="#btnClearOnAction" prefHeight="30.0" prefWidth="168.0" text="CLEAR" />
       <JFXButton layoutX="714.0" layoutY="252.0" onAction="#btnSearchOnAction" prefHeight="30.0" prefWidth="168.0" text="SEARCH" />
       <TextArea layoutX="480.0" layoutY="175.0" prefHeight="62.0" prefWidth="421.0" promptText="Description" />
-      <ComboBox layoutX="269.0" layoutY="206.0" prefHeight="28.0" prefWidth="187.0" promptText="Category" />
+      <ComboBox fx:id="cmbCategory" layoutX="269.0" layoutY="206.0" prefHeight="28.0" prefWidth="187.0" promptText="Category" />
       <TextField fx:id="txtId" layoutX="36.0" layoutY="138.0" prefHeight="26.0" prefWidth="187.0" promptText="ID" />
       <TextField fx:id="txtName" layoutX="269.0" layoutY="137.0" prefHeight="26.0" prefWidth="187.0" promptText="Name" />
       <TextField fx:id="txtPrice" layoutX="486.0" layoutY="137.0" prefHeight="26.0" prefWidth="187.0" promptText="Price" />

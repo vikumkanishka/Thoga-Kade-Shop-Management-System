@@ -1,12 +1,11 @@
 package controller;
 
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -14,7 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import model.ItemDto;
 
 import java.sql.*;
-import java.util.List;
+
 
 public class ItemInfoFormController {
 
@@ -27,7 +26,7 @@ public class ItemInfoFormController {
     private TableColumn<?, ?> ColPackSize;
 
     @FXML
-    private JFXComboBox<?> cmbCategory;
+    private ComboBox<String> cmbCategory;
 
     @FXML
     private TableColumn<?, ?> colCategory;
@@ -54,6 +53,11 @@ public class ItemInfoFormController {
     private JFXTextArea txtDescription;
 
     ObservableList <ItemDto> itemDtos = FXCollections.observableArrayList();
+    ObservableList <String> categoryList = FXCollections.observableArrayList("Food", "Beverage", "Other");
+
+    public void initialize(){
+        cmbCategory.setItems(categoryList);
+    }
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
