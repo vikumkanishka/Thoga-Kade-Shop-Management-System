@@ -80,7 +80,7 @@ public class CustomerInfoFormController {
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
 
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO customer VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO customers VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
             preparedStatement.setObject(1, id);
             preparedStatement.setObject(2, firstname);
@@ -99,6 +99,17 @@ public class CustomerInfoFormController {
     }
 
     public void btnDeleteOnAction(ActionEvent actionEvent) {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
+
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM customers WHERE cus_id = ?");
+
+            preparedStatement.setObject(1,txtCusId.getText());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
