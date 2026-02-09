@@ -22,11 +22,11 @@
       <TextField fx:id="txtCusPhone" layoutX="395.0" layoutY="185.0" prefHeight="26.0" prefWidth="198.0" promptText="Phone" />
       <TextField fx:id="txtCusAddress" layoutX="149.0" layoutY="185.0" prefHeight="26.0" prefWidth="222.0" promptText="Address" />
       <DatePicker fx:id="cusRegDate" layoutX="613.0" layoutY="185.0" prefHeight="26.0" prefWidth="222.0" />
-      <TableView layoutX="4.0" layoutY="271.0" opacity="0.9" prefHeight="374.0" prefWidth="856.0">
+      <TableView fx:id="tblCustomerInfo" layoutX="4.0" layoutY="271.0" opacity="0.9" prefHeight="374.0" prefWidth="856.0">
         <columns>
           <TableColumn fx:id="colCusId" prefWidth="45.600006103515625" text="ID" />
           <TableColumn fx:id="colCusFirstName" prefWidth="96.0" text="First Name" />
-            <TableColumn fx:id="ColCusLastName" prefWidth="100.79998779296875" text="Last Name" />
+            <TableColumn fx:id="colCusLastName" prefWidth="100.79998779296875" text="Last Name" />
             <TableColumn fx:id="colCusEmail" prefWidth="138.4000244140625" text="Email" />
             <TableColumn fx:id="colCusCity" prefWidth="86.39996337890625" text="City" />
             <TableColumn fx:id="colCusAddress" prefWidth="158.4000244140625" text="Address" />

@@ -6,7 +6,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.CustomerDto;
 
 import java.sql.*;
@@ -16,8 +18,9 @@ import java.util.List;
 
 public class CustomerInfoFormController {
 
-    @FXML
-    private TableColumn<?, ?> ColCusLastName;
+    public TableView tblCustomerInfo;
+    public TableColumn colCusLastName;
+
 
     @FXML
     private TableColumn<?, ?> colCusAddress;
@@ -167,6 +170,18 @@ public class CustomerInfoFormController {
 
                 observableList.add(customerDto);
             }
+
+            colCusId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+            colCusFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+            colCusLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+            colCusEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+            colCusCity.setCellValueFactory(new PropertyValueFactory<>("city"));
+            colCusAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+            colCusPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+            colCusDate.setCellValueFactory(new PropertyValueFactory<>("registeredDate"));
+
+            tblCustomerInfo.setItems(observableList);
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
