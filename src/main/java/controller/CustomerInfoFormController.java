@@ -12,8 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import model.CustomerDto;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 
 public class CustomerInfoFormController {
@@ -144,8 +143,6 @@ public class CustomerInfoFormController {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
     public void btnReloadOnAction(ActionEvent actionEvent) {

@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,6 +16,11 @@ import java.sql.SQLException;
 
 public class ItemInfoFormController {
 
+    public TextField txtId;
+    public TextField txtName;
+    public TextField txtPrice;
+    public TextField txtPackSize;
+    public TextField txtQTY;
     @FXML
     private TableColumn<?, ?> ColPackSize;
 
@@ -45,20 +51,9 @@ public class ItemInfoFormController {
     @FXML
     private JFXTextArea txtDescription;
 
-    @FXML
-    private JFXTextField txtId;
+    
 
-    @FXML
-    private JFXTextField txtName;
-
-    @FXML
-    private JFXTextField txtPackSize;
-
-    @FXML
-    private JFXTextField txtPrice;
-
-    @FXML
-    private JFXTextField txtQTY;
+    
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
@@ -99,6 +94,18 @@ public class ItemInfoFormController {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
 
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
+
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM items WHERE id = ?");
+
+            preparedStatement.setObject(1,txtId.getText());
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
