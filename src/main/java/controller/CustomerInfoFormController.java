@@ -102,7 +102,7 @@ public class CustomerInfoFormController {
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
 
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM customers WHERE cus_id = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM customers WHERE customerId = ?");
 
             preparedStatement.setObject(1,txtCusId.getText());
             preparedStatement.executeUpdate();
@@ -113,6 +113,35 @@ public class CustomerInfoFormController {
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
+
+        String id = txtCusId.getText();
+        String firstname = txtCusFirstName.getText();
+        String lastname = txtCusLastName.getText();
+        String email = txtCusEmail.getText();
+        String city = txtCusCity.getText();
+        String address = txtCusAddress.getText();
+        Integer phone = Integer.parseInt(txtCusPhone.getText());
+        String regdate = String.valueOf(cusRegDate.getValue());
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
+
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE customers SET firstName=?,lastName=?,email=?,phone=?,address=?,city=?,regDate=? WHERE customerId=?");
+
+            preparedStatement.setObject(1, firstname);
+            preparedStatement.setObject(2, lastname);
+            preparedStatement.setObject(3, email);
+            preparedStatement.setObject(4, phone);
+            preparedStatement.setObject(5, address);
+            preparedStatement.setObject(6, city);
+            preparedStatement.setObject(7, regdate);
+            preparedStatement.setObject(8, id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 
