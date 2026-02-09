@@ -186,4 +186,38 @@ public class ItemInfoFormController {
         cmbCategory.setValue(null);
         txtDescription.clear();
     }
+
+    public void btnReloadOnAction(ActionEvent actionEvent) {
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
+
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM items");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                ItemDto itemDto = new ItemDto(
+                        resultSet.getString(1),
+                        resultSet.getString(1),
+                        resultSet.getDouble(3),
+                        resultSet.getString(4),
+                        resultSet.getString(5),
+                        resultSet.getString(6),
+                        resultSet.getInt(7)
+                );
+                itemDtos.add(itemDto);
+            }
+            colId.setCellValueFactory(new PropertyValueFactory<>("itemId"));
+            colName.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+            colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+            colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+            colCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+            ColPackSize.setCellValueFactory(new PropertyValueFactory<>("packSize"));
+            colQTY.setCellValueFactory(new PropertyValueFactory<>("quantityOnHand"));
+
+            tblItemInformations.setItems(itemDtos);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

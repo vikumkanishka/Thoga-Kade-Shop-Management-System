@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -30,11 +31,11 @@
             <TableColumn fx:id="colDescription" prefWidth="245.5999755859375" text="DESCRIPTION" />
         </columns>
       </TableView>
-      <JFXButton layoutX="36.0" layoutY="252.0" onAction="#btnAddOnAction" prefHeight="30.0" prefWidth="168.0" text="ADD" />
-      <JFXButton layoutX="214.0" layoutY="252.0" onAction="#btnUpdateOnAction" prefHeight="30.0" prefWidth="168.0" text="UPDATE" />
-      <JFXButton layoutX="392.0" layoutY="252.0" onAction="#btnDeleteOnAction" prefHeight="30.0" prefWidth="168.0" text="DELETE" />
-      <JFXButton layoutX="570.0" layoutY="252.0" onAction="#btnClearOnAction" prefHeight="30.0" prefWidth="168.0" text="CLEAR" />
-      <JFXButton layoutX="748.0" layoutY="252.0" onAction="#btnSearchOnAction" prefHeight="30.0" prefWidth="168.0" text="SEARCH" />
+      <JFXButton layoutX="2.0" layoutY="252.0" onAction="#btnAddOnAction" prefHeight="30.0" prefWidth="168.0" text="ADD" />
+      <JFXButton layoutX="180.0" layoutY="252.0" onAction="#btnUpdateOnAction" prefHeight="30.0" prefWidth="168.0" text="UPDATE" />
+      <JFXButton layoutX="358.0" layoutY="252.0" onAction="#btnDeleteOnAction" prefHeight="30.0" prefWidth="168.0" text="DELETE" />
+      <JFXButton layoutX="536.0" layoutY="252.0" onAction="#btnClearOnAction" prefHeight="30.0" prefWidth="168.0" text="CLEAR" />
+      <JFXButton layoutX="714.0" layoutY="252.0" onAction="#btnSearchOnAction" prefHeight="30.0" prefWidth="168.0" text="SEARCH" />
       <TextArea layoutX="480.0" layoutY="175.0" prefHeight="62.0" prefWidth="421.0" promptText="Description" />
       <ComboBox layoutX="269.0" layoutY="206.0" prefHeight="28.0" prefWidth="187.0" promptText="Category" />
       <TextField fx:id="txtId" layoutX="36.0" layoutY="138.0" prefHeight="26.0" prefWidth="187.0" promptText="ID" />
@@ -42,5 +43,6 @@
       <TextField fx:id="txtPrice" layoutX="486.0" layoutY="137.0" prefHeight="26.0" prefWidth="187.0" promptText="Price" />
       <TextField fx:id="txtPackSize" layoutX="712.0" layoutY="138.0" prefHeight="26.0" prefWidth="187.0" promptText="PackSize" />
       <TextField fx:id="txtQTY" layoutX="36.0" layoutY="206.0" prefHeight="26.0" prefWidth="187.0" promptText="QuantityOnHnd" />
+      <Button layoutX="874.0" layoutY="252.0" mnemonicParsing="false" onAction="#btnReloadOnAction" text="Reload" />
    </children>
 </AnchorPane>
