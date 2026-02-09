@@ -3,16 +3,18 @@ package controller;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import model.ItemDto;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.List;
 
 public class ItemInfoFormController {
 
@@ -46,14 +48,12 @@ public class ItemInfoFormController {
     private TableColumn<?, ?> colQTY;
 
     @FXML
-    private TableView<?> tblItemInformations;
+    private TableView<ItemDto> tblItemInformations;
 
     @FXML
     private JFXTextArea txtDescription;
 
-    
-
-    
+    ObservableList <ItemDto> itemDtos = FXCollections.observableArrayList();
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
@@ -111,6 +111,39 @@ public class ItemInfoFormController {
     @FXML
     void btnSearchOnAction(ActionEvent event) {
 
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
+
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM items WHERE itemId = ?");
+
+            preparedStatement.setObject(1, txtId.getText());
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()){
+                String id = resultSet.getString(1);
+                String name = resultSet.getString(2);
+                Double price = resultSet.getDouble(3);
+                String description = resultSet.getString(4);
+                String category = resultSet.getString(5);
+                String packSize = resultSet.getString(6);
+                Integer qty = resultSet.getInt(7);
+
+                ItemDto itemDto = new ItemDto(id, name, price, description, category, packSize, qty);
+                itemDtos.add(itemDto);
+            }
+            colId.setCellValueFactory(new PropertyValueFactory<>("itemId"));
+            colName.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+            colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+            colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+            colCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+            ColPackSize.setCellValueFactory(new PropertyValueFactory<>("packSize"));
+            colQTY.setCellValueFactory(new PropertyValueFactory<>("quantityOnHand"));
+
+
+            tblItemInformations.setItems(itemDtos);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
