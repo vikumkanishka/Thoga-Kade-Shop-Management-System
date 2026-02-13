@@ -98,6 +98,8 @@ public class CustomerInfoFormController implements Initializable {
 
             preparedStatement.execute();
 
+            loadAllCustomers();
+            clearfields();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -113,6 +115,8 @@ public class CustomerInfoFormController implements Initializable {
             preparedStatement.setObject(1,txtCusId.getText());
             preparedStatement.executeUpdate();
 
+            loadAllCustomers();
+            clearfields();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -145,13 +149,15 @@ public class CustomerInfoFormController implements Initializable {
 
             preparedStatement.executeUpdate();
 
+            loadAllCustomers();
+            clearfields();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     public void btnReloadOnAction(ActionEvent actionEvent) {
-
         customerController.getAllCustomers();
     }
 
@@ -168,6 +174,21 @@ public class CustomerInfoFormController implements Initializable {
         colCusDate.setCellValueFactory(new PropertyValueFactory<>("registeredDate"));
 
         tblCustomerInfo.setItems(customerController.getAllCustomers());
+    }
+
+    public void loadAllCustomers(){
+        tblCustomerInfo.setItems(customerController.getAllCustomers());
+    }
+
+    public void clearfields(){
+        txtCusId.clear();
+        txtCusFirstName.clear();
+        txtCusLastName.clear();
+        txtCusEmail.clear();
+        txtCusCity.clear();
+        txtCusAddress.clear();
+        txtCusPhone.clear();
+        cusRegDate.setValue(null);
     }
 
 }
