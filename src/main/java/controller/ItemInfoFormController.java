@@ -57,6 +57,7 @@ public class ItemInfoFormController implements Initializable {
 
     ObservableList <ItemDto> itemDtos = FXCollections.observableArrayList();
     ObservableList <String> categoryList = FXCollections.observableArrayList("Food", "Beverage", "Other");
+    ItemController itemController = new ItemController();
 
     public void initialize(){
         cmbCategory.setItems(categoryList);
@@ -234,29 +235,6 @@ public class ItemInfoFormController implements Initializable {
         ColPackSize.setCellValueFactory(new PropertyValueFactory<>("packSize"));
         colQTY.setCellValueFactory(new PropertyValueFactory<>("quantityOnHand"));
 
-        tblItemInformations.setItems(itemDtos);
-
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
-
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM items");
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()){
-                ItemDto itemDto = new ItemDto(
-                        resultSet.getString(1),
-                        resultSet.getString(1),
-                        resultSet.getDouble(3),
-                        resultSet.getString(4),
-                        resultSet.getString(5),
-                        resultSet.getString(6),
-                        resultSet.getInt(7)
-                );
-                itemDtos.add(itemDto);
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        tblItemInformations.setItems(itemController.getAllItems());
     }
 }
