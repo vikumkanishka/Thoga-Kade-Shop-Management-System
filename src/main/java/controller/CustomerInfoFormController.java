@@ -107,28 +107,9 @@ public class CustomerInfoFormController implements Initializable {
         Integer phone = Integer.parseInt(txtCusPhone.getText());
         String regdate = String.valueOf(cusRegDate.getValue());
 
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
-
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE customers SET firstName=?,lastName=?,email=?,phone=?,address=?,city=?,registeredDate=? WHERE customerId=?");
-
-            preparedStatement.setObject(1, firstname);
-            preparedStatement.setObject(2, lastname);
-            preparedStatement.setObject(3, email);
-            preparedStatement.setObject(4, phone);
-            preparedStatement.setObject(5, address);
-            preparedStatement.setObject(6, city);
-            preparedStatement.setObject(7, regdate);
-            preparedStatement.setObject(8, id);
-
-            preparedStatement.executeUpdate();
-
-            loadAllCustomers();
-            clearfields();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        customerController.updateCustomer(id,firstname,lastname,email,city,address,phone,regdate);
+        clearfields();
+        loadAllCustomers();
     }
 
     public void btnReloadOnAction(ActionEvent actionEvent) {
@@ -164,5 +145,4 @@ public class CustomerInfoFormController implements Initializable {
         txtCusPhone.clear();
         cusRegDate.setValue(null);
     }
-
 }

@@ -40,6 +40,7 @@ public class CustomerController {
         }
         return observableList;
     }
+
     public void addCustomer(String id, String firstName, String lastName, String email,String city, String address, int phone, String regDate) {
 
         try {
@@ -62,6 +63,7 @@ public class CustomerController {
             throw new RuntimeException(e);
         }
     }
+
     public void deleteCustomer(String id) {
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
@@ -75,5 +77,29 @@ public class CustomerController {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void updateCustomer(String id, String firstName, String lastName, String email,String city, String address, Integer phone, String regDate) {
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
+
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE customers SET firstName=?,lastName=?,email=?,phone=?,address=?,city=?,registeredDate=? WHERE customerId=?");
+
+            preparedStatement.setObject(1, firstName);
+            preparedStatement.setObject(2, lastName);
+            preparedStatement.setObject(3, email);
+            preparedStatement.setObject(4, phone);
+            preparedStatement.setObject(5, address);
+            preparedStatement.setObject(6, city);
+            preparedStatement.setObject(7, regDate);
+            preparedStatement.setObject(8, id);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
