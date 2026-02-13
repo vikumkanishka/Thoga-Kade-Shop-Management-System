@@ -12,6 +12,8 @@ public class ItemController {
 
     public ObservableList<ItemDto> getAllItems(){
 
+        observableList.clear();
+
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
 
@@ -35,5 +37,26 @@ public class ItemController {
             throw new RuntimeException(e);
         }
         return observableList;
+    }
+
+    public void addItem(String id, String name, Double price, String description, String category, String packSize, Integer qty){
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
+
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO items VALUES(?,?,?,?,?,?,?)");
+
+            preparedStatement.setObject(1, id);
+            preparedStatement.setObject(2, name);
+            preparedStatement.setObject(3, price);
+            preparedStatement.setObject(4, description );
+            preparedStatement.setObject(5, category);
+            preparedStatement.setObject(6, packSize );
+            preparedStatement.setObject(7, qty );
+
+            preparedStatement.execute();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

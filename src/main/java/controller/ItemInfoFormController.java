@@ -1,15 +1,11 @@
 package controller;
 
-import com.jfoenix.controls.JFXTextArea;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.ItemDto;
 
@@ -25,6 +21,7 @@ public class ItemInfoFormController implements Initializable {
     public TextField txtPrice;
     public TextField txtPackSize;
     public TextField txtQTY;
+    public TextArea txtDescription;
     @FXML
     private TableColumn<?, ?> ColPackSize;
 
@@ -52,8 +49,6 @@ public class ItemInfoFormController implements Initializable {
     @FXML
     private TableView<ItemDto> tblItemInformations;
 
-    @FXML
-    private JFXTextArea txtDescription;
 
     ObservableList <ItemDto> itemDtos = FXCollections.observableArrayList();
     ObservableList <String> categoryList = FXCollections.observableArrayList("Food", "Beverage", "Other");
@@ -68,30 +63,15 @@ public class ItemInfoFormController implements Initializable {
 
         String id = txtId.getText();
         String name = txtName.getText();
-        String price = txtPrice.getText();
+        Double price = Double.valueOf(txtPrice.getText());
         String packSize = txtPackSize.getText();
-        String qty = txtQTY.getText();
+        Integer qty = Integer.valueOf(txtQTY.getText());
         String category = String.valueOf(cmbCategory.getValue());
         String description = txtDescription.getText();
 
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
+        itemController.addItem(id, name, price, description, category, packSize, qty);
 
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO items VALUES(?,?,?,?,?,?,?)");
-
-            preparedStatement.setObject(1, id);
-            preparedStatement.setObject(2, name);
-            preparedStatement.setObject(3, price);
-            preparedStatement.setObject(4, packSize);
-            preparedStatement.setObject(5, qty);
-            preparedStatement.setObject(6, category);
-            preparedStatement.setObject(7, description);
-
-            preparedStatement.execute();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        loadAllItems();
     }
 
     @FXML
@@ -169,7 +149,6 @@ public class ItemInfoFormController implements Initializable {
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
 
-            connection.prepareStatement("UPDATE items SET name = ?, price = ?, pack_size = ?, qty_on_hand = ?, category = ?, description = ? WHERE id = ?");
 
              PreparedStatement preparedStatement = connection.prepareStatement("UPDATE items SET name = ?, price = ?, pack_size = ?, qty_on_hand = ?, category = ?, description = ? WHERE id = ?");
 
@@ -199,30 +178,8 @@ public class ItemInfoFormController implements Initializable {
 
     public void btnReloadOnAction(ActionEvent actionEvent) {
 
-        itemDtos.clear();
+        loadAllItems();
 
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
-
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM items");
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()){
-                ItemDto itemDto = new ItemDto(
-                        resultSet.getString(1),
-                        resultSet.getString(1),
-                        resultSet.getDouble(3),
-                        resultSet.getString(4),
-                        resultSet.getString(5),
-                        resultSet.getString(6),
-                        resultSet.getInt(7)
-                );
-                itemDtos.add(itemDto);
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override
@@ -234,7 +191,11 @@ public class ItemInfoFormController implements Initializable {
         colCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
         ColPackSize.setCellValueFactory(new PropertyValueFactory<>("packSize"));
         colQTY.setCellValueFactory(new PropertyValueFactory<>("quantityOnHand"));
+        cmbCategory.setItems(categoryList);
 
+        tblItemInformations.setItems(itemController.getAllItems());
+    }
+    public void loadAllItems(){
         tblItemInformations.setItems(itemController.getAllItems());
     }
 }
