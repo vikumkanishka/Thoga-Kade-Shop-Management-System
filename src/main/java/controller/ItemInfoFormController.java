@@ -115,6 +115,8 @@ public class ItemInfoFormController {
     @FXML
     void btnSearchOnAction(ActionEvent event) {
 
+        itemDtos.clear();
+
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
 
@@ -192,6 +194,8 @@ public class ItemInfoFormController {
     }
 
     public void btnReloadOnAction(ActionEvent actionEvent) {
+
+        itemDtos.clear();
 
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");

@@ -128,7 +128,7 @@ public class CustomerInfoFormController {
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
 
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE customers SET firstName=?,lastName=?,email=?,phone=?,address=?,city=?,regDate=? WHERE customerId=?");
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE customers SET firstName=?,lastName=?,email=?,phone=?,address=?,city=?,registeredDate=? WHERE customerId=?");
 
             preparedStatement.setObject(1, firstname);
             preparedStatement.setObject(2, lastname);
@@ -146,6 +146,8 @@ public class CustomerInfoFormController {
     }
 
     public void btnReloadOnAction(ActionEvent actionEvent) {
+
+        observableList.clear();
 
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
