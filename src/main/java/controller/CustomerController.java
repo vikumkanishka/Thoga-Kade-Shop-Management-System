@@ -100,6 +100,5 @@ public class CustomerController {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 }

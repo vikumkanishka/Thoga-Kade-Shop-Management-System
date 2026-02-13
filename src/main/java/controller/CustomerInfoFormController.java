@@ -129,6 +129,23 @@ public class CustomerInfoFormController implements Initializable {
         colCusDate.setCellValueFactory(new PropertyValueFactory<>("registeredDate"));
 
         tblCustomerInfo.setItems(customerController.getAllCustomers());
+
+        tblCustomerInfo.getSelectionModel().selectedItemProperty().addListener(observableValue -> {;
+            CustomerDto selectedCustomer = (CustomerDto) tblCustomerInfo.getSelectionModel().getSelectedItem();
+            if (selectedCustomer != null) {
+                setSelectedValue(selectedCustomer);
+            }
+        });
+    }
+
+    private void setSelectedValue(CustomerDto selectedValue) {
+        txtCusId.setText(selectedValue.getCustomerId());
+        txtCusFirstName.setText(selectedValue.getFirstName());
+        txtCusLastName.setText(selectedValue.getLastName());
+        txtCusEmail.setText(selectedValue.getEmail());
+        txtCusCity.setText(selectedValue.getCity());
+        txtCusAddress.setText(selectedValue.getAddress());
+        txtCusPhone.setText(String.valueOf(selectedValue.getPhone()));
     }
 
     public void loadAllCustomers(){
