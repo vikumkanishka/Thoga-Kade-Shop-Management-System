@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -11,11 +12,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.CustomerDto;
 
+import java.net.URL;
 import java.sql.*;
+import java.util.ResourceBundle;
 
 
-
-public class CustomerInfoFormController {
+public class CustomerInfoFormController implements Initializable {
 
     public TableView tblCustomerInfo;
     public TableColumn colCusLastName;
@@ -146,7 +148,27 @@ public class CustomerInfoFormController {
     }
 
     public void btnReloadOnAction(ActionEvent actionEvent) {
+        loadAllCustomers();
+    }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        colCusId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        colCusFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        colCusLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        colCusEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colCusCity.setCellValueFactory(new PropertyValueFactory<>("city"));
+        colCusAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colCusPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        colCusDate.setCellValueFactory(new PropertyValueFactory<>("registeredDate"));
+
+        tblCustomerInfo.setItems(observableList);
+
+        loadAllCustomers();
+    }
+
+    public void loadAllCustomers(){
         observableList.clear();
 
         try {
@@ -169,17 +191,6 @@ public class CustomerInfoFormController {
 
                 observableList.add(customerDto);
             }
-
-            colCusId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
-            colCusFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-            colCusLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-            colCusEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-            colCusCity.setCellValueFactory(new PropertyValueFactory<>("city"));
-            colCusAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
-            colCusPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
-            colCusDate.setCellValueFactory(new PropertyValueFactory<>("registeredDate"));
-
-            tblCustomerInfo.setItems(observableList);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
