@@ -68,6 +68,7 @@ public class CustomerInfoFormController implements Initializable {
     @FXML
     private TextField txtCusPhone;
 
+    CustomerController customerController = new CustomerController();
     ObservableList<CustomerDto> observableList = FXCollections.observableArrayList();
 
     public void btnAddOnAction(ActionEvent actionEvent) {
@@ -97,7 +98,6 @@ public class CustomerInfoFormController implements Initializable {
 
             preparedStatement.execute();
 
-            loadAllCustomers();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -112,8 +112,6 @@ public class CustomerInfoFormController implements Initializable {
 
             preparedStatement.setObject(1,txtCusId.getText());
             preparedStatement.executeUpdate();
-
-            loadAllCustomers();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -147,14 +145,14 @@ public class CustomerInfoFormController implements Initializable {
 
             preparedStatement.executeUpdate();
 
-            loadAllCustomers();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     public void btnReloadOnAction(ActionEvent actionEvent) {
-        loadAllCustomers();
+
+        customerController.getAllCustomers();
     }
 
     @Override
@@ -169,37 +167,7 @@ public class CustomerInfoFormController implements Initializable {
         colCusPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
         colCusDate.setCellValueFactory(new PropertyValueFactory<>("registeredDate"));
 
-        tblCustomerInfo.setItems(observableList);
-
-        loadAllCustomers();
+        tblCustomerInfo.setItems(customerController.getAllCustomers());
     }
 
-    public void loadAllCustomers(){
-        observableList.clear();
-
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
-
-            ResultSet resultSet = connection.prepareStatement("SELECT * FROM customers").executeQuery();
-
-
-            while (resultSet.next()) {
-                String id = resultSet.getString(1);
-                String firstName = resultSet.getString(2);
-                String lastName = resultSet.getString(3);
-                String email = resultSet.getString(4);
-                int phone = resultSet.getInt(5);
-                String address = resultSet.getString(6);
-                String city = resultSet.getString(7);
-                String regDate = resultSet.getString(8);
-
-                CustomerDto customerDto = new CustomerDto(id, firstName, lastName, email, phone, address, city, regDate);
-
-                observableList.add(customerDto);
-            }
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
