@@ -129,30 +129,16 @@ public class ItemInfoFormController implements Initializable {
     void btnUpdateOnAction(ActionEvent event) {
         String id = txtId.getText();
         String name = txtName.getText();
-        String price = txtPrice.getText();
+        Double price = Double.valueOf(txtPrice.getText());
         String packSize = txtPackSize.getText();
-        String qty = txtQTY.getText();
+        Integer qty = Integer.valueOf(txtQTY.getText());
         String category = String.valueOf(cmbCategory.getValue());
         String description = txtDescription.getText();
 
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
+        itemController.updateItem(id, name, price, description, category, packSize, qty);
 
-
-             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE items SET name = ?, price = ?, pack_size = ?, qty_on_hand = ?, category = ?, description = ? WHERE id = ?");
-
-             preparedStatement.setObject(1, name);
-             preparedStatement.setObject(2, price);
-             preparedStatement.setObject(3, packSize);
-             preparedStatement.setObject(4, qty);
-             preparedStatement.setObject(5, category);
-             preparedStatement.setObject(6, description);
-             preparedStatement.setObject(7, id);
-
-             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        loadAllItems();
+        clearFeilds();
     }
 
     public void clearFeilds(){

@@ -73,4 +73,24 @@ public class ItemController {
             throw new RuntimeException(e);
         }
     }
+    public void updateItem(String id, String name, Double price, String description, String category, String packSize, Integer qty){
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
+
+
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE items SET itemName = ?, price = ?, description = ?, category = ?, packSize = ?, quantityOnHand = ? WHERE ItemId = ?");
+
+            preparedStatement.setObject(1, name);
+            preparedStatement.setObject(2, price);
+            preparedStatement.setObject(3, packSize);
+            preparedStatement.setObject(4, description);
+            preparedStatement.setObject(5, category);
+            preparedStatement.setObject(6, qty);
+            preparedStatement.setObject(7, id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
