@@ -89,19 +89,11 @@ public class CustomerInfoFormController implements Initializable {
     }
 
     public void btnDeleteOnAction(ActionEvent actionEvent) {
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
 
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM customers WHERE customerId = ?");
+        customerController.deleteCustomer(txtCusId.getText());
 
-            preparedStatement.setObject(1,txtCusId.getText());
-            preparedStatement.executeUpdate();
-
-            loadAllCustomers();
-            clearfields();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        loadAllCustomers();
+        clearfields();
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {

@@ -62,4 +62,18 @@ public class CustomerController {
             throw new RuntimeException(e);
         }
     }
+    public void deleteCustomer(String id) {
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
+
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM customers WHERE customerId = ?");
+
+            preparedStatement.setObject(1,id);
+            preparedStatement.executeUpdate();
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
