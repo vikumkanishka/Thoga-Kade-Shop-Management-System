@@ -96,6 +96,8 @@ public class CustomerInfoFormController implements Initializable {
             preparedStatement.setObject(8, regdate);
 
             preparedStatement.execute();
+
+            loadAllCustomers();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -110,6 +112,8 @@ public class CustomerInfoFormController implements Initializable {
 
             preparedStatement.setObject(1,txtCusId.getText());
             preparedStatement.executeUpdate();
+
+            loadAllCustomers();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -142,6 +146,8 @@ public class CustomerInfoFormController implements Initializable {
             preparedStatement.setObject(8, id);
 
             preparedStatement.executeUpdate();
+
+            loadAllCustomers();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
