@@ -2,6 +2,7 @@ package controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.ItemDto;
 
 import java.sql.*;
@@ -89,6 +90,37 @@ public class ItemController {
             preparedStatement.setObject(7, id);
 
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public ObservableList<ItemDto> searchItem(String itemid) {
+
+        observableList.clear();
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
+
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM items WHERE itemId = ?");
+
+            preparedStatement.setObject(1, itemid);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                String id = resultSet.getString(1);
+                String name = resultSet.getString(2);
+                Double price = resultSet.getDouble(3);
+                String description = resultSet.getString(4);
+                String category = resultSet.getString(5);
+                String packSize = resultSet.getString(6);
+                Integer qty = resultSet.getInt(7);
+
+                ItemDto itemDto = new ItemDto(id, name, price, description, category, packSize, qty);
+                observableList.add(itemDto);
+            }
+
+            return observableList;
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

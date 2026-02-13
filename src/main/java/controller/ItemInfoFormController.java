@@ -88,41 +88,9 @@ public class ItemInfoFormController implements Initializable {
     @FXML
     void btnSearchOnAction(ActionEvent event) {
 
-        itemDtos.clear();
+        ObservableList<ItemDto> resultSet = itemController.searchItem(txtId.getText());
+        tblItemInformations.setItems(resultSet);
 
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
-
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM items WHERE itemId = ?");
-
-            preparedStatement.setObject(1, txtId.getText());
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()){
-                String id = resultSet.getString(1);
-                String name = resultSet.getString(2);
-                Double price = resultSet.getDouble(3);
-                String description = resultSet.getString(4);
-                String category = resultSet.getString(5);
-                String packSize = resultSet.getString(6);
-                Integer qty = resultSet.getInt(7);
-
-                ItemDto itemDto = new ItemDto(id, name, price, description, category, packSize, qty);
-                itemDtos.add(itemDto);
-            }
-            colId.setCellValueFactory(new PropertyValueFactory<>("itemId"));
-            colName.setCellValueFactory(new PropertyValueFactory<>("itemName"));
-            colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-            colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-            colCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
-            ColPackSize.setCellValueFactory(new PropertyValueFactory<>("packSize"));
-            colQTY.setCellValueFactory(new PropertyValueFactory<>("quantityOnHand"));
-
-
-            tblItemInformations.setItems(itemDtos);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @FXML
