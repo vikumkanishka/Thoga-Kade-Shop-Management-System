@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -12,10 +13,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.ItemDto;
 
+import java.net.URL;
 import java.sql.*;
+import java.util.ResourceBundle;
 
 
-public class ItemInfoFormController {
+public class ItemInfoFormController implements Initializable {
 
     public TextField txtId;
     public TextField txtName;
@@ -215,15 +218,43 @@ public class ItemInfoFormController {
                 );
                 itemDtos.add(itemDto);
             }
-            colId.setCellValueFactory(new PropertyValueFactory<>("itemId"));
-            colName.setCellValueFactory(new PropertyValueFactory<>("itemName"));
-            colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-            colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-            colCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
-            ColPackSize.setCellValueFactory(new PropertyValueFactory<>("packSize"));
-            colQTY.setCellValueFactory(new PropertyValueFactory<>("quantityOnHand"));
 
-            tblItemInformations.setItems(itemDtos);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        colId.setCellValueFactory(new PropertyValueFactory<>("itemId"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+        colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        colCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+        ColPackSize.setCellValueFactory(new PropertyValueFactory<>("packSize"));
+        colQTY.setCellValueFactory(new PropertyValueFactory<>("quantityOnHand"));
+
+        tblItemInformations.setItems(itemDtos);
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
+
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM items");
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                ItemDto itemDto = new ItemDto(
+                        resultSet.getString(1),
+                        resultSet.getString(1),
+                        resultSet.getDouble(3),
+                        resultSet.getString(4),
+                        resultSet.getString(5),
+                        resultSet.getString(6),
+                        resultSet.getInt(7)
+                );
+                itemDtos.add(itemDto);
+            }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
