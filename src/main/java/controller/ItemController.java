@@ -59,4 +59,18 @@ public class ItemController {
             throw new RuntimeException(e);
         }
     }
+    public void deleteItem(String id){
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
+
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM items WHERE ItemId = ?");
+
+            preparedStatement.setObject(1,id);
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -54,9 +54,6 @@ public class ItemInfoFormController implements Initializable {
     ObservableList <String> categoryList = FXCollections.observableArrayList("Food", "Beverage", "Other");
     ItemController itemController = new ItemController();
 
-    public void initialize(){
-        cmbCategory.setItems(categoryList);
-    }
 
     @FXML
     void btnAddOnAction(ActionEvent event) {
@@ -70,8 +67,8 @@ public class ItemInfoFormController implements Initializable {
         String description = txtDescription.getText();
 
         itemController.addItem(id, name, price, description, category, packSize, qty);
-
         loadAllItems();
+        clearFeilds();
     }
 
     @FXML
@@ -82,18 +79,10 @@ public class ItemInfoFormController implements Initializable {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
 
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
+        itemController.deleteItem(txtId.getText());
+        loadAllItems();
+        clearFeilds();
 
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM items WHERE id = ?");
-
-            preparedStatement.setObject(1,txtId.getText());
-
-            preparedStatement.executeUpdate();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @FXML
@@ -195,6 +184,7 @@ public class ItemInfoFormController implements Initializable {
 
         tblItemInformations.setItems(itemController.getAllItems());
     }
+
     public void loadAllItems(){
         tblItemInformations.setItems(itemController.getAllItems());
     }
