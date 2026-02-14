@@ -1,4 +1,4 @@
-package controller;
+package controller.item;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,7 +10,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import model.ItemDto;
 
 import java.net.URL;
-import java.sql.*;
 import java.util.ResourceBundle;
 
 

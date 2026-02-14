@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="679.0" prefWidth="948.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ItemInfoFormController">
+<AnchorPane prefHeight="679.0" prefWidth="948.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.item.ItemInfoFormController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#183c5e" height="112.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="948.0" />
       <Label alignment="CENTER" layoutX="240.0" layoutY="28.0" prefHeight="36.0" prefWidth="431.0" text="Item Management" textFill="WHITE">

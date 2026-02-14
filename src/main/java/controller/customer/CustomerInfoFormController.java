@@ -1,4 +1,4 @@
-package controller;
+package controller.customer;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +13,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import model.CustomerDto;
 
 import java.net.URL;
-import java.sql.*;
 import java.util.ResourceBundle;
 
 
