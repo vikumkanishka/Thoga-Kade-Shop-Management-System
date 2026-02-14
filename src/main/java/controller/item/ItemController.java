@@ -1,5 +1,6 @@
 package controller.item;
 
+import db.DbConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.ItemDto;
@@ -15,7 +16,7 @@ public class ItemController {
         observableList.clear();
 
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
+            Connection connection = DbConnection.getInstance().getConnection();
 
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM items");
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -41,7 +42,7 @@ public class ItemController {
 
     public void addItem(String id, String name, Double price, String description, String category, String packSize, Integer qty){
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
+            Connection connection = DbConnection.getInstance().getConnection();
 
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO items VALUES(?,?,?,?,?,?,?)");
 
@@ -61,7 +62,7 @@ public class ItemController {
     }
     public void deleteItem(String id){
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
+            Connection connection = DbConnection.getInstance().getConnection();
 
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM items WHERE ItemId = ?");
 
@@ -75,8 +76,7 @@ public class ItemController {
     }
     public void updateItem(String id, String name, Double price, String description, String category, String packSize, Integer qty){
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
-
+            Connection connection = DbConnection.getInstance().getConnection();
 
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE items SET itemName = ?, price = ?, description = ?, category = ?, packSize = ?, quantityOnHand = ? WHERE ItemId = ?");
 
@@ -98,7 +98,7 @@ public class ItemController {
         observableList.clear();
 
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
+            Connection connection = DbConnection.getInstance().getConnection();
 
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM items WHERE itemId = ?");
 

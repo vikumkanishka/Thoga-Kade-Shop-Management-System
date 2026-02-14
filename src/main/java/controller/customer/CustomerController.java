@@ -1,5 +1,6 @@
 package controller.customer;
 
+import db.DbConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.CustomerDto;
@@ -15,7 +16,7 @@ public class CustomerController {
         observableList.clear();
 
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
+            Connection connection = DbConnection.getInstance().getConnection();
 
             ResultSet resultSet = connection.prepareStatement("SELECT * FROM customers").executeQuery();
 
@@ -44,7 +45,7 @@ public class CustomerController {
     public void addCustomer(String id, String firstName, String lastName, String email,String city, String address, int phone, String regDate) {
 
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
+            Connection connection = DbConnection.getInstance().getConnection();
 
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO customers VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -66,8 +67,7 @@ public class CustomerController {
 
     public void deleteCustomer(String id) {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
-
+            Connection connection = DbConnection.getInstance().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM customers WHERE customerId = ?");
 
             preparedStatement.setObject(1,id);
@@ -82,7 +82,7 @@ public class CustomerController {
     public void updateCustomer(String id, String firstName, String lastName, String email,String city, String address, Integer phone, String regDate) {
 
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/Thogakade_Shop_Management_System", "root", "200004602360");
+            Connection connection = DbConnection.getInstance().getConnection();
 
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE customers SET firstName=?,lastName=?,email=?,phone=?,address=?,city=?,registeredDate=? WHERE customerId=?");
 
