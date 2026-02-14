@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="646.0" prefWidth="896.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardController">
+<AnchorPane prefHeight="646.0" prefWidth="896.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.dashboard.DashboardController">
    <children>
       <Label layoutX="143.0" layoutY="54.0" prefHeight="59.0" prefWidth="610.0" text="Thogakade Shop Management System">
          <font>

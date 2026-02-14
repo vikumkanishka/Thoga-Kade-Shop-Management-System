@@ -13,6 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import model.CustomerDto;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ResourceBundle;
 
 
@@ -78,7 +80,7 @@ public class CustomerInfoFormController implements Initializable {
         String city = txtCusCity.getText();
         String address = txtCusAddress.getText();
         Integer phone = Integer.parseInt(txtCusPhone.getText());
-        String regdate = String.valueOf(cusRegDate.getValue());
+        LocalDate regdate = cusRegDate.getValue();
 
         customerController.addCustomer(id,firstname,lastname,email,city,address,phone,regdate);
 
@@ -104,7 +106,7 @@ public class CustomerInfoFormController implements Initializable {
         String city = txtCusCity.getText();
         String address = txtCusAddress.getText();
         Integer phone = Integer.parseInt(txtCusPhone.getText());
-        String regdate = String.valueOf(cusRegDate.getValue());
+        LocalDate regdate = cusRegDate.getValue();
 
         customerController.updateCustomer(id,firstname,lastname,email,city,address,phone,regdate);
         clearfields();
@@ -129,22 +131,22 @@ public class CustomerInfoFormController implements Initializable {
 
         tblCustomerInfo.setItems(customerController.getAllCustomers());
 
-        tblCustomerInfo.getSelectionModel().selectedItemProperty().addListener(observableValue -> {;
-            CustomerDto selectedCustomer = (CustomerDto) tblCustomerInfo.getSelectionModel().getSelectedItem();
-            if (selectedCustomer != null) {
-                setSelectedValue(selectedCustomer);
+        tblCustomerInfo.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newVlaue) -> {
+            if (newVlaue != null){
+                setSelectedValue((CustomerDto) newVlaue);
             }
         });
     }
 
-    private void setSelectedValue(CustomerDto selectedValue) {
-        txtCusId.setText(selectedValue.getCustomerId());
-        txtCusFirstName.setText(selectedValue.getFirstName());
-        txtCusLastName.setText(selectedValue.getLastName());
-        txtCusEmail.setText(selectedValue.getEmail());
-        txtCusCity.setText(selectedValue.getCity());
-        txtCusAddress.setText(selectedValue.getAddress());
-        txtCusPhone.setText(String.valueOf(selectedValue.getPhone()));
+    private void setSelectedValue(CustomerDto customerDto) {
+        txtCusId.setText(customerDto.getCustomerId());
+        txtCusFirstName.setText(customerDto.getFirstName());
+        txtCusLastName.setText(customerDto.getLastName());
+        txtCusEmail.setText(customerDto.getEmail());
+        txtCusCity.setText(customerDto.getCity());
+        txtCusAddress.setText(customerDto.getAddress());
+        txtCusPhone.setText(String.valueOf(customerDto.getPhone()));
+        cusRegDate.setValue(customerDto.getRegisteredDate());
     }
 
     public void loadAllCustomers(){

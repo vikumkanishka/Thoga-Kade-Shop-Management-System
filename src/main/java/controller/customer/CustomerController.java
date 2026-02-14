@@ -6,6 +6,8 @@ import javafx.collections.ObservableList;
 import model.CustomerDto;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.util.Date;
 
 public class CustomerController {
 
@@ -29,7 +31,7 @@ public class CustomerController {
                 int phone = resultSet.getInt(5);
                 String address = resultSet.getString(6);
                 String city = resultSet.getString(7);
-                String regDate = resultSet.getString(8);
+                LocalDate regDate = resultSet.getDate(8).toLocalDate();
 
                 CustomerDto customerDto = new CustomerDto(id, firstName, lastName, email, phone, address, city, regDate);
 
@@ -42,7 +44,7 @@ public class CustomerController {
         return observableList;
     }
 
-    public void addCustomer(String id, String firstName, String lastName, String email,String city, String address, int phone, String regDate) {
+    public void addCustomer(String id, String firstName, String lastName, String email,String city, String address, int phone, LocalDate regDate) {
 
         try {
             Connection connection = DbConnection.getInstance().getConnection();
@@ -79,7 +81,7 @@ public class CustomerController {
         }
     }
 
-    public void updateCustomer(String id, String firstName, String lastName, String email,String city, String address, Integer phone, String regDate) {
+    public void updateCustomer(String id, String firstName, String lastName, String email,String city, String address, Integer phone, LocalDate regDate) {
 
         try {
             Connection connection = DbConnection.getInstance().getConnection();
