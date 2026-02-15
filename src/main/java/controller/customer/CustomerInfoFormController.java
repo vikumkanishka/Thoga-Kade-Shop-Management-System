@@ -1,7 +1,7 @@
 package controller.customer;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import controller.service.CustomerService;
+import controller.service.CustomerServiceImpl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,7 +14,6 @@ import model.CustomerDto;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ResourceBundle;
 
 
@@ -69,8 +68,7 @@ public class CustomerInfoFormController implements Initializable {
     @FXML
     private TextField txtCusPhone;
 
-    CustomerController customerController = new CustomerController();
-    ObservableList<CustomerDto> observableList = FXCollections.observableArrayList();
+    CustomerService service = new CustomerServiceImpl();
 
     public void btnAddOnAction(ActionEvent actionEvent) {
         String id = txtCusId.getText();
@@ -82,7 +80,7 @@ public class CustomerInfoFormController implements Initializable {
         Integer phone = Integer.parseInt(txtCusPhone.getText());
         LocalDate regdate = cusRegDate.getValue();
 
-        customerController.addCustomer(id,firstname,lastname,email,city,address,phone,regdate);
+        service.addCustomer(id,firstname,lastname,email,city,address,phone,regdate);
 
         loadAllCustomers();
         clearfields();
@@ -91,7 +89,7 @@ public class CustomerInfoFormController implements Initializable {
 
     public void btnDeleteOnAction(ActionEvent actionEvent) {
 
-        customerController.deleteCustomer(txtCusId.getText());
+        service.deleteCustomer(txtCusId.getText());
 
         loadAllCustomers();
         clearfields();
@@ -108,13 +106,13 @@ public class CustomerInfoFormController implements Initializable {
         Integer phone = Integer.parseInt(txtCusPhone.getText());
         LocalDate regdate = cusRegDate.getValue();
 
-        customerController.updateCustomer(id,firstname,lastname,email,city,address,phone,regdate);
+        service.updateCustomer(id,firstname,lastname,email,city,address,phone,regdate);
         clearfields();
         loadAllCustomers();
     }
 
     public void btnReloadOnAction(ActionEvent actionEvent) {
-        customerController.getAllCustomers();
+        service.getAllCustomers();
     }
 
     @Override
@@ -129,7 +127,7 @@ public class CustomerInfoFormController implements Initializable {
         colCusPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
         colCusDate.setCellValueFactory(new PropertyValueFactory<>("registeredDate"));
 
-        tblCustomerInfo.setItems(customerController.getAllCustomers());
+        tblCustomerInfo.setItems(service.getAllCustomers());
 
         tblCustomerInfo.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newVlaue) -> {
             if (newVlaue != null){
@@ -150,7 +148,7 @@ public class CustomerInfoFormController implements Initializable {
     }
 
     public void loadAllCustomers(){
-        tblCustomerInfo.setItems(customerController.getAllCustomers());
+        tblCustomerInfo.setItems(service.getAllCustomers());
     }
 
     public void clearfields(){

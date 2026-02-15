@@ -1,4 +1,4 @@
-package controller.customer;
+package controller.service;
 
 import db.DbConnection;
 import javafx.collections.FXCollections;
@@ -7,12 +7,12 @@ import model.CustomerDto;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.Date;
 
-public class CustomerController {
+public class CustomerServiceImpl implements CustomerService {
 
     ObservableList<CustomerDto> observableList = FXCollections.observableArrayList();
 
+    @Override
     public ObservableList<CustomerDto> getAllCustomers() {
 
         observableList.clear();
@@ -44,6 +44,7 @@ public class CustomerController {
         return observableList;
     }
 
+    @Override
     public void addCustomer(String id, String firstName, String lastName, String email,String city, String address, int phone, LocalDate regDate) {
 
         try {
@@ -67,6 +68,7 @@ public class CustomerController {
         }
     }
 
+    @Override
     public void deleteCustomer(String id) {
         try {
             Connection connection = DbConnection.getInstance().getConnection();
@@ -81,6 +83,7 @@ public class CustomerController {
         }
     }
 
+    @Override
     public void updateCustomer(String id, String firstName, String lastName, String email,String city, String address, Integer phone, LocalDate regDate) {
 
         try {
